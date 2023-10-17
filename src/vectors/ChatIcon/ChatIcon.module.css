@@ -1,0 +1,10 @@
+.container {
+    position: relative;
+}
+
+.redDot {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    width: 15px;
+}

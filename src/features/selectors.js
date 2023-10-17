@@ -1,0 +1,9 @@
+export const selectCount = (state) => state.counter.value;
+export const signUpSelect = (state) => state.counter.signUp;
+export const dashboardSelect = (state) => state.counter.dashboard;
+export const itemSelect = (state) => state.counter.item;
+export const authSelect = (state) => state.counter.auth;
+export const postsSelect = (state) => state.counter.posts;
+export const createPostSelect = (state) => state.counter.createPost;
+export const profileSelect = (state) => state.counter.profile;
+export const userSelect = (state) => state.counter.user;

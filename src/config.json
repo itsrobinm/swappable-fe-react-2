@@ -1,0 +1,9 @@
+{
+  "refreshAccessTokenMargin" : 10,
+  "routes" : {
+    "home" : "home",
+    "listItem": "item/list",
+    "makeoffer": "makeoffer"
+    
+  }
+}

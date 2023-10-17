@@ -1,0 +1,6 @@
+.outerRing {
+    background-color: white;
+    padding: 6px;
+    border-radius: 100%;
+    cursor: pointer;
+}

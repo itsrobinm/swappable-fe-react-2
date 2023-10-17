@@ -1,0 +1,36 @@
+.itemTitle {
+  /* padding: 0.75rem 0.5rem; */
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.image {
+  transition: transform 0.5s;
+
+}
+
+.price {
+  font-weight: 700;
+}
+
+.container {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    height: 16rem;
+}
+
+.actionsContainer{
+  text-align: end;
+}
+
+.infoContainer {
+  padding: 0.5rem;
+  position: relative;
+  top: -17px;
+
+  z-index: 1;
+  background: linear-gradient(0deg, rgba(255,255,255,1) 80%, rgba(255,255,255,0) 99%, rgba(255,255,255,0) 100%);
+}

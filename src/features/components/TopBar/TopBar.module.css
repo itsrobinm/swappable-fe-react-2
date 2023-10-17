@@ -1,0 +1,19 @@
+.shoulders {
+    flex-grow: 1;
+}
+
+.leftArrow {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 0;
+}
+
+.backButton {
+    transition: all 0.1s;
+    opacity: 1;
+}
+
+.hide {
+    opacity: 0;
+}
