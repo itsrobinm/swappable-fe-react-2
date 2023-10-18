@@ -1,9 +1,9 @@
 import React, { LegacyRef, forwardRef, useState } from "react"
-import { CloseIcon } from "../../../../vectors/CloseIcon/closeIcon";
+import { CloseIcon } from "../../../../vectors/CloseIcon/closeIcon.js";
 import styles from "./MakeOffer.module.css";
-import { CustomButton } from "../../customButton";
-import { CustomInput } from "../../customInput";
-import { priceValidator } from "../../../validators/PriceValidator.ts";
+import { CustomButton } from "../../customButton.js";
+import { CustomInput } from "../../customInput.js";
+import { priceValidator } from "../../../validators/PriceValidator";
 
 
 export const MakeOffer = forwardRef((props: { item: any, closeFunc: () => void }, ref: LegacyRef<HTMLDialogElement>) => {
