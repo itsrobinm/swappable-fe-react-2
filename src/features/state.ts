@@ -1,18 +1,15 @@
-export const initialState = {
-  value: 0,
-  splideInst: null,
+import { AppState } from "../types/types";
+
+export const initialState: AppState = {
   signUp: {
     newUser: {
       firstName: "",
       email: "",
       phoneNumber: "",
       username: "",
-      verificationCode: "",
     },
     usernameExists: false,
     pending: false,
-    emailExists: false,
-    phoneNumberExists: false,
     toggleSnackBar: false,
     resSuccess: false,
     statusMessage: "",
@@ -28,7 +25,7 @@ export const initialState = {
   },
   item: {
     getItemPending: false,
-    currentItem: {},
+    currentItem: null,
   },
   status: "idle",
   auth: {
@@ -39,17 +36,16 @@ export const initialState = {
     refreshTokenPending: true,
   },
   createPost: {
-    pending: false
+    pending: false,
   },
-  posts : {
-    posts: [],
-    pending: false
+  items: {
+    items: [],
+    pending: false,
   },
   profile: {
-    username: ""
+    username: "",
   },
   user: {
-    username: ""
-  }
-
+    username: "",
+  },
 };

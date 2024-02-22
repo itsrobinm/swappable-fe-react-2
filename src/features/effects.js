@@ -7,7 +7,7 @@ export const createPost = createAsyncThunk(
     console.log(payload);
 
     const requestPromise = axiosInstance.post(
-      "/api/posts/create",
+      "/api/items/create",
       payload.form
     );
 
@@ -26,31 +26,11 @@ export const getCategoriesAsync = createAsyncThunk(
     const delayPromise = new Promise((resolve) => setTimeout(resolve, 1000));
     await Promise.all([response, delayPromise]);
 
-
     // The value we return becomes the fulfilled action payload or rejected action payload
     return response.data;
   }
 );
 
-export const getPostsAsync = createAsyncThunk(
-  "counter/getPostsAsync",
-  async (payload, { getState }) => {
-    let state = getState(); //get a copy of the state so we can read state variables
-    const requestPromise = axiosInstance.post(
-      `/api/posts/${payload.categoryId}`
-    );
-
-    if (state.counter.posts.posts.length === 0) {
-      const delayPromise = new Promise((resolve) => setTimeout(resolve, 1000));
-
-      //the below line will block execution until both promises have been resolved
-      await Promise.all([requestPromise, delayPromise]);
-      return requestPromise.then((response) => response.data);
-    } else {
-      return requestPromise.then((response) => response.data);
-    }
-  }
-);
 
 export const getItemAsync = createAsyncThunk(
   "counter/getItemAsync",
@@ -63,7 +43,6 @@ export const getItemAsync = createAsyncThunk(
     return resp.data.data;
   }
 );
-
 
 export const getUserInformation = createAsyncThunk(
   "counter/getUserInformation",
@@ -93,16 +72,20 @@ export const sendConfirmationEmailAsync = createAsyncThunk(
 export const likeItemAsync = createAsyncThunk(
   "counter/likeItemAsync",
   async (payload) => {
-    const resp = await axiosInstance.post(`/api/posts/like/${payload.itemID}`);
+    const resp = await axiosInstance.post(`/api/items/like/${payload.itemID}`);
     return resp.data;
-  });
+  }
+);
 
-  export const unlikeItemAsync = createAsyncThunk(
-    "unlikeItemAsync",
-    async (payload) => {
-      const resp = await axiosInstance.post(`/api/posts/unlike/${payload.itemID}`);
-      return resp.data;
-    });
+export const unlikeItemAsync = createAsyncThunk(
+  "unlikeItemAsync",
+  async (payload) => {
+    const resp = await axiosInstance.post(
+      `/api/items/unlike/${payload.itemID}`
+    );
+    return resp.data;
+  }
+);
 
 //interacts with endpoit that will create a user and send them a code to confirm at the next step - EMAIL
 export const sendConfirmationTextAsync = createAsyncThunk(
@@ -204,7 +187,5 @@ export const signUpUserAsync = createAsyncThunk(
 
     //action success / error is handled in the fulfilled/rejected action
     return response.data;
-
-    //return true;
   }
 );

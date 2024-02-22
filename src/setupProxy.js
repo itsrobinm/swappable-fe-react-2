@@ -4,7 +4,8 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://localhost:8000/',
+      //target: 'http://api.swappable.co.uk/',
+      target: "http://localhost:8000/",
       changeOrigin: true,
       pathRewrite: {
         '^/api':'' // remove /api/

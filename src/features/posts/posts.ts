@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 import { posts } from "../../mockedData/posts";
@@ -15,15 +14,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { postsSelect, dashboardSelect } from "../selectors";
 
 import { useEffect } from "react";
-import { getCategoriesAsync, getPostsAsync } from "../effects";
-import { LoadingScreen } from "../loadingScreen";
-import { HomeIcon } from "../../vectors/home";
-import { CreatePostIcon } from "../../vectors/createPost";
-import { ProfileIcon } from "../../vectors/profileIcon";
+import { getCategoriesAsync } from "../effects.js";
+import { LoadingScreen } from "../loadingScreen.js";
+import { HomeIcon } from "../../vectors/home.js";
+import { CreatePostIcon } from "../../vectors/createPost.js";
+import { ProfileIcon } from "../../vectors/profileIcon.js";
 import { setActivePageIndex } from "../counterSlice";
-import { ItemCard } from "../components/ItemCard/itemcard";
-import { TopBar } from "../components/TopBar/topBar";
-import { LoadingCard } from "../components/ItemCard/loadingCard";
+import { ItemCard } from "../components/ItemCard/itemcard.js";
+import { TopBar } from "../components/TopBar/topBar.js";
+import { LoadingCard } from "../components/ItemCard/loadingCard.js";
+import { getPostsAsync } from "../effectsNew";
 
 export const PostsScreen = () => {
   const navigate = useNavigate();
@@ -41,6 +41,7 @@ export const PostsScreen = () => {
     dispatch(getCategoriesAsync());
 
     dispatch(getPostsAsync({})).then((action) => {
+      console.log(action.payload);
     });
   }, []);
 
@@ -86,7 +87,7 @@ export const PostsScreen = () => {
               Array.from({ length: 5 }).map((_, index) => (
                 <LoadingCard key={index} />
               ))}
-            {postsSelect$.posts.map((item, index) => {
+            {postsSelect$.items.map((item, index) => {
               return (
                 <ItemCard
                   key={index}

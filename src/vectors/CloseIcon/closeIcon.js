@@ -8,6 +8,8 @@ export const CloseIcon = (props) => {
         xmlns="http://www.w3.org/2000/svg"
         width="22.457"
         height="22.457"
+        fill="currentColor"
+
         viewBox="0 0 22.457 22.457"
       >
         <path

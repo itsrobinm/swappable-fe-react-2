@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "../features/counterSlice";
-import axiosInstance from "./../axiosInstance";
-import { refreshAccessTokenAsync } from "../features/effects";
+import axiosInstance from "../axiosInstance";
+import { refreshAccessTokenAsync } from "../features/effects.js";
 import jwt_decode from "jwt-decode";
 import config from "../config.json";
+import { AxiosRequestConfig } from "axios";
+import { Item, JWT } from "../types/types.js";
 
 export const store = configureStore({
   reducer: {
@@ -18,24 +20,19 @@ axiosInstance.interceptors.request.use(async (req) => {
   //check to see if we have an access token stored in the state
   let accessToken = store.getState().counter.auth.accessToken;
 
-  //the below logic shouldnt apply to requests going out the the refresh enpoint
-  //console.log(currentReqUrl);
-  if (!currentReqUrl.includes("/api/auth")) {
+  //the below logic SHOULD NOT apply to requests going out the the refresh enpoint
+  if (!(currentReqUrl!.includes("/api/auth"))) {
     if (accessToken) {
-      req.headers.Authorization = `Bearer ${accessToken}`;
+      req.headers!.Authorization = `Bearer ${accessToken}`;
 
       const now = Math.floor(Date.now() / 1000);
-      const decoded = jwt_decode(accessToken);
+      const decoded : JWT = jwt_decode(accessToken);
 
       let timeDifference = decoded.exp - now;
       //if the token is close to expiring - (margin defined in config.json)
       if (timeDifference <= config.refreshAccessTokenMargin) {
         await refreshAccessToken(req);
       }
-    } else {
-      //if we don't have it, we'll need to get a new one via the refresh endpoint
-      //await refreshAccessToken(req);
-      console.log("you don't have a token bro");
     }
   }
 
@@ -43,7 +40,7 @@ axiosInstance.interceptors.request.use(async (req) => {
 });
 
 //function to refresh the token
-async function refreshAccessToken(req) {
+async function refreshAccessToken(req: AxiosRequestConfig) {
   //req.headers.SomeHeader = 'added some header';
 
 
@@ -53,7 +50,7 @@ async function refreshAccessToken(req) {
   //we shopuld be all good to get the header and add it to the token
 
   let accessToken = store.getState().counter.auth.accessToken;
-  req.headers.Authorization = `Bearer ${accessToken}`;
+  req.headers!.Authorization = `Bearer ${accessToken}`;
 
   return req;
 }
