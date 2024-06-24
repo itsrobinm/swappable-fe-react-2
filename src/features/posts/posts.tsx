@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
-import { posts } from "../../mockedData/posts";
-import { Post } from "../components/post";
+import { posts } from "../../mockedData/posts.js";
+import { Post } from "../components/post.js";
 import {
   lightGrey,
   lighterGrey,
   lightestGrey,
   standardShadow,
-} from "../../app/globalStyles";
+} from "../../app/globalStyles.js";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { postsSelect, dashboardSelect } from "../selectors";
@@ -24,10 +24,11 @@ import { ItemCard } from "../components/ItemCard/itemcard.js";
 import { TopBar } from "../components/TopBar/topBar.js";
 import { LoadingCard } from "../components/ItemCard/loadingCard.js";
 import { getPostsAsync } from "../effectsNew";
+import { useAppDispatch } from "../../hooks";
 
 export const PostsScreen = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const postsSelect$ = useSelector(postsSelect);
   const dashboardSelect$ = useSelector(dashboardSelect);
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);

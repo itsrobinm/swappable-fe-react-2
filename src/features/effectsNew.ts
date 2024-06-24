@@ -22,13 +22,17 @@ export const makeOffer = createAsyncThunk(
 
 export const getPostsAsync = createAsyncThunk(
   "counter/getPostsAsync",
-  async (payload: { categoryId: string }, { getState }) => {
+  async (payload: { categoryId?: string }, { getState }) => {
     // @ts-ignore:next-line
     let state: GetStateType = getState(); //get a copy of the state so we can read state variables
 
-    const requestPromise = axiosInstance.post<{ items: Item[] }>(
+    const requestPromise = await axiosInstance.post<{items: Item[]}>(
       `/api/items/${payload.categoryId}`
     );
+
+    return requestPromise.data;
+
+    /*
 
     if (state.counter.items.items.length === 0) {
       const delayPromise = new Promise((resolve) => setTimeout(resolve, 1000));
@@ -39,5 +43,8 @@ export const getPostsAsync = createAsyncThunk(
     } else {
       return requestPromise.then((response) => response.data);
     }
+
+    */
+
   }
 );
