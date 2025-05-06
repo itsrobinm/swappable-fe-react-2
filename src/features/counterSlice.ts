@@ -73,13 +73,13 @@ export const counterSlice = createSlice({
         state.createPost.pending = false;
       })
       .addCase(confirmUserCodeAsync.fulfilled, (state, action) => {})
-      //get items
-      //get item categories
       .addCase(getCategoriesAsync.pending, (state, action) => {
         state.dashboard.getCategoriesPending = true;
       })
       .addCase(getCategoriesAsync.fulfilled, (state, action) => {
-        state.dashboard.categories = [...action.payload.categories];
+        console.log(action.payload)
+
+        state.dashboard.categories = [...action.payload];
         state.dashboard.getCategoriesPending = false;
       })
       .addCase(getCategoriesAsync.rejected, (state, action) => {

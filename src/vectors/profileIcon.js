@@ -1,5 +1,3 @@
-import { accentColor } from "../app/globalStyles";
-
 export const ProfileIcon = (props) => {
   return (
     <svg

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setNewUserData, dismissSignUpSnackBar } from "./counterSlice";
 import Snackbar from "@mui/material/Snackbar";
 import { useNavigate } from "react-router-dom";
+import { MainLogo } from "../vectors/mainLogo";
+
 
 
 import {
@@ -71,8 +73,8 @@ export const SignUp = () => {
           content={
             <>
               <div className="space-y-4">
-                <LogoSmall />
-
+                {/* <LogoSmall /> */}
+                <MainLogo />
                 <Swiper
                   onSwiper={setSwiperRef}
                   allowTouchMove={false}

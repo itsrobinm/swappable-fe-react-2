@@ -33,33 +33,33 @@ export const ChatIcon = () => {
           </clipPath>
         </defs>
       </svg>
-    <div className={styles.redDot}>
-      <svg
-        version="1.1"
-        id="Layer_1"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        x="0px"
-        y="0px"
-        width="100%"
-        viewBox="0 0 122.88 122.88"
-        xmlSpace="preserve"
-      >
-        <style type="text/css">
-          {`.st0 {
+      {/* <div className={styles.redDot}>
+        <svg
+          version="1.1"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          width="100%"
+          viewBox="0 0 122.88 122.88"
+          xmlSpace="preserve"
+        >
+          <style type="text/css">
+            {`.st0 {
           fill-rule: evenodd;
           clip-rule: evenodd;
           fill: #FF4141;
         }`}
-        </style>
-        <g>
-          <path
-            className="st0"
-            d="M61.44,0c33.93,0,61.44,27.51,61.44,61.44s-27.51,61.44-61.44,61.44S0,95.37,0,61.44S27.51,0,61.44,0L61.44,0z"
-          />
-        </g>
-      </svg>
-      </div>
+          </style>
+          <g>
+            <path
+              className="st0"
+              d="M61.44,0c33.93,0,61.44,27.51,61.44,61.44s-27.51,61.44-61.44,61.44S0,95.37,0,61.44S27.51,0,61.44,0L61.44,0z"
+            />
+          </g>
+        </svg>
+      </div> */}
     </div>
   );
 };

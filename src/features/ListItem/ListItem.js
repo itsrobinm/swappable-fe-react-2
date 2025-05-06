@@ -44,7 +44,7 @@ export const ListItem = () => {
     dispatch(getCategoriesAsync()).then((action) => {
       console.log(action.payload);
 
-      let myArr = action.payload.categories.map((obj) => {
+      let myArr = action.payload.map((obj) => {
         return { label: obj.name, id: obj._id };
       });
 
@@ -98,7 +98,6 @@ export const ListItem = () => {
             value={price}
             placeholder={"£60.00"}
             onChange={(text) => {
-              
               if (priceValidator(text)) {
                 setPrice(text);
               }
@@ -120,7 +119,7 @@ export const ListItem = () => {
           />
           <CustomButton
             enabled={true}
-            text={"Create Post"}
+            text={"List Item"}
             loading={createPostSelect$.pending}
             clicked={(enabled) => {
               if (enabled) {
@@ -132,8 +131,12 @@ export const ListItem = () => {
 
                 imageArr.forEach((image) => {
                   console.log(image);
-                  if (image) form.append("files", image, image.name);
+                  if (image) {
+                    form.append("files", image, image.name);
+                  }
                 });
+
+                console.log(form);
 
                 dispatch(createPost({ form: form })).then((action) => {
                   if (action.payload) {

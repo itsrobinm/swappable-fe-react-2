@@ -17,6 +17,8 @@
     &::backdrop {
         backdrop-filter: blur(10px)  brightness(50%);
     }
+
+   
 }
 
 .dialogContainer {
@@ -25,6 +27,11 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
+    align-items: center;
+
+    /* > div {
+        width: 100%;
+    } */
 }
 
 .offerThumbnail {
