@@ -85,7 +85,7 @@ function App() {
             </>
           )}
         </Routes></div>
-        {authSelect$.loggedIn && <BottomBar />}
+        {/* {authSelect$.loggedIn && <BottomBar />} */}
       </Router>
     </>
   );

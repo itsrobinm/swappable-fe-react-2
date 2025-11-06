@@ -14,11 +14,13 @@ import {
   signUpUserAsync,
   refreshAccessTokenAsync,
   createPost,
-  getPostsAsync,
   getUserInformation,
   likeItemAsync,
   unlikeItemAsync,
-} from "./effects";
+} from "./effects.js";
+import { getPostsAsync } from "./effectsNew";
+
+import { AppState, Item } from "../types/types.js";
 
 //reducer thing
 export const counterSlice = createSlice({
@@ -26,16 +28,6 @@ export const counterSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
     dismissSignUpSnackBar: (state) => {
       state.signUp.toggleSnackBar = false;
     },
@@ -43,17 +35,11 @@ export const counterSlice = createSlice({
       state.auth.toggleSnackBar = false;
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
-    },
     logoutUser: (state) => {
       logout(state);
     },
     setNewUserData: (state, action) => {
-      state.signUp.newUser[action.payload.fieldName] = action.payload.value;
-    },
-    initSlideInst: (state, action) => {
-      state.splideInst = action.payload;
+      //state.signUp.newUser[action.payload.fieldName] = action.payload.value;
     },
     setActivePageIndex: (state, action) => {
       state.dashboard.activePageIndex = action.payload;
@@ -70,8 +56,7 @@ export const counterSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(checkUserFieldExistsAsync.fulfilled, (state, action) => {
-        state.signUp[`${action.payload.key}`] = action.payload.value;
-        //console.log(state.signUp[`${action.payload.key}`]);
+        //state.signUp[`${action.payload.key}`] = action.payload.value;
       })
       .addCase(createPost.pending, (state, action) => {
         console.log("create post pending");
@@ -88,13 +73,13 @@ export const counterSlice = createSlice({
         state.createPost.pending = false;
       })
       .addCase(confirmUserCodeAsync.fulfilled, (state, action) => {})
-      //get items
-      //get item categories
       .addCase(getCategoriesAsync.pending, (state, action) => {
         state.dashboard.getCategoriesPending = true;
       })
       .addCase(getCategoriesAsync.fulfilled, (state, action) => {
-        state.dashboard.categories = [...action.payload.categories];
+        console.log(action.payload)
+
+        state.dashboard.categories = [...action.payload];
         state.dashboard.getCategoriesPending = false;
       })
       .addCase(getCategoriesAsync.rejected, (state, action) => {
@@ -111,34 +96,34 @@ export const counterSlice = createSlice({
         state.item.getItemPending = false;
       })
       .addCase(getPostsAsync.pending, (state, action) => {
-        state.posts.pending = true;
+        state.items.pending = true;
       })
       .addCase(getPostsAsync.fulfilled, (state, action) => {
-        let posts = action.payload.posts;
-        state.posts.posts = [...posts];
-        state.posts.pending = false;
+        console.log(action.payload);
+
+        let items = action.payload.items;
+        state.items.items = [...items];
+        state.items.pending = false;
       })
       .addCase(getPostsAsync.rejected, (state, action) => {
-        state.posts.pending = false;
+        state.items.pending = false;
       })
       .addCase(getUserInformation.fulfilled, (state, action) => {
         state.profile.username = action.payload.name;
       })
       .addCase(likeItemAsync.fulfilled, (state, action) => {
-        const index = state.posts.posts.findIndex(
-          (item) => item._id === action.payload.itemID
+        const index = state.items.items.findIndex(
+          (item: Item) => item._id === action.payload.itemID
         );
 
-        state.posts.posts[index]["likedByThisUser"] = true;
+        state.items.items[index]["likedByThisUser"] = true;
       })
       .addCase(unlikeItemAsync.fulfilled, (state, action) => {
-
-        const index = state.posts.posts.findIndex(
-          (item) => item._id === action.payload.itemID
+        const index = state.items.items.findIndex(
+          (item: Item) => item._id === action.payload.itemID
         );
 
-        state.posts.posts[index]["likedByThisUser"] = false;
-
+        state.items.items[index]["likedByThisUser"] = false;
       })
       //actions for sign-in signInAsync
       .addCase(signInAsync.pending, (state, action) => {
@@ -197,21 +182,23 @@ export const counterSlice = createSlice({
 });
 
 export const {
-  increment,
-  decrement,
-  incrementByAmount,
-  randomAction,
   setNewUserData,
   dismissSignUpSnackBar,
   dismissSignInSnackBar,
-  initSlideInst,
   setCurrentCategory,
   setSomeRandomText,
   setActivePageIndex,
   logoutUser,
 } = counterSlice.actions;
 
-function logInUser(state, actionPayload) {
+function logInUser(
+  state: AppState,
+  actionPayload: {
+    accessToken: string;
+    user: { username: string };
+    refreshToken: string;
+  }
+) {
   state.auth.accessToken = actionPayload.accessToken;
   state.auth.loggedIn = true;
   state.user.username = actionPayload.user.username;
@@ -219,7 +206,7 @@ function logInUser(state, actionPayload) {
   localStorage.setItem("refreshToken", actionPayload.refreshToken);
 }
 
-function logout(state) {
+function logout(state: AppState) {
   state.auth.accessToken = undefined;
   state.auth.loggedIn = false;
   state.user.username = undefined;

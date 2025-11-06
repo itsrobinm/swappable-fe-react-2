@@ -15,7 +15,7 @@ export const BottomBar = () => {
   const dashboardSelect$ = useSelector(dashboardSelect);
   const userSelect$ = useSelector(userSelect);
 
-  const showBottomBar = location.pathname === "/home";
+  const showBottomBar = /* location.pathname === "/home"; */ true;
 
   return (
     showBottomBar && (
